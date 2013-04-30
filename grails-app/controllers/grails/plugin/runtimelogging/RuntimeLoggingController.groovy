@@ -11,6 +11,7 @@ import org.codehaus.groovy.grails.commons.GrailsClass
  * configuration though Config.groovy
  *
  * @author Jason Morris (jason.morris@torusit.com)
+ * modified by Tom Dean (tom.dean@convergys.com)
  */
 class RuntimeLoggingController {
 
