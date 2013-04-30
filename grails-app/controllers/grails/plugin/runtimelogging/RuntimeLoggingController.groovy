@@ -117,10 +117,15 @@ class RuntimeLoggingController {
 		def logMapList = []
 		boolean grails1 = GrailsUtil.getGrailsVersion().startsWith('1')
 		for (GrailsClass gc in grailsApplication.getArtefacts(artefactType).sort { it.fullName }) {
-			String logger = grails1 ?
-				"grails.app.${artefactType.toLowerCase()}.${calculateLoggerName(gc.logicalPropertyName, artefactType)}" :
-				gc.clazz.log.name
-			logMapList << [name: gc.fullName, logger: logger]
+			try {
+				String logger = grails1 ?
+					"grails.app.${artefactType.toLowerCase()}.${calculateLoggerName(gc.logicalPropertyName, artefactType)}" :
+					gc.clazz.log.name
+				logMapList << [name: gc.fullName, logger: logger]
+			}
+			catch (MissingPropertyException e) {
+				// ignore it and go on
+			}
 		}
 		return logMapList
 	}
